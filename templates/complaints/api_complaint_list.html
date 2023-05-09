@@ -1,0 +1,18 @@
+<style>
+    .complain-container {
+        font-family: "Nunito", sans-serif;
+        padding: 1rem;
+        margin: 1rem;
+    }
+</style>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %} <title>All Registered Complaints</title>
+
+{% endblock %}
+
+{% block content %}
+    {{ object_list }}
+{% endblock %}

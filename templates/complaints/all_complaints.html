@@ -1,0 +1,38 @@
+<style>
+    .complain-container {
+        font-family: "Nunito", sans-serif;
+        padding: 1rem;
+        margin: 1rem;
+    }
+</style>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %} <title>All Registered Complaints</title>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container complain-container">
+        <table class="table">
+    <thead>
+      <tr class="my-3">
+        <th>Complain Title</th>
+        <th>Submitted By</th>
+        <th>View Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for each_object in object_list %}
+        <tr>
+            <td>{{ each_object.title }}</td>
+            <td>{{ each_object.created_by }}</td>
+            <td><a href="{% url 'complaints:detail_complain' pk=each_object.pk %}">View Details</a></td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+    </div>
+{% endblock %}

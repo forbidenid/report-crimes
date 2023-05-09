@@ -1,0 +1,131 @@
+<style>
+    .profile-container {
+        padding: 1rem;
+        background-color: #306ccc;
+        border-radius: 0.6rem;
+        margin: 1rem;
+        font-family: "Source Sans Pro", sans-serif;
+        color: mintcream;
+    }
+
+    .biography {
+        white-space: pre-line;
+    }
+
+    .section-heading {
+        font-family: "Ubuntu", sans-serif;
+        font-size: 1rem;
+        color: antiquewhite;
+    }
+
+    .complain-container {
+        width: 80%;
+        background-color: mintcream;
+        color: crimson;
+    }
+
+</style>
+{% extends 'base.html' %}
+
+{% block header %}
+    <title>Crime Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="text-center alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+   <div class="w-50 mx-auto my-3">
+   <h4 class="text-center mx-auto my-3">Hello, {{ object.username }}! WELCOME TO YOUR DASHBOARD</h4>
+   <div class="container profile-container">
+        <div class="row justify-content-around">
+            <div class="col-sm-4">
+                <img src="{{ object.profile_image.url }}" alt="Image not available" height="200" width="250">
+                <h5 class="text-center my-3">Profile Avatar</h5>
+            </div>
+
+            <div class="col-sm-6">
+                <p class="section-heading">{{ object.username }}</p>
+                <p> {{ object.bio }}</p>
+                <p class="section-heading">Contact No</p> <p> {{ object.phone_no }}</p>
+                <p class="section-heading">Email</p><p> {{ object.email }}</p>
+
+            </div>
+        </div>
+
+   </div>
+
+    <div class="container">
+        <div class="container row complain-container">
+
+        </div>
+    </div>
+
+    <div class="container my-3 mx-auto text-center">
+        <button class="btn btn-danger" id="show_complain">My Complaints</button>
+        <button class="btn btn-primary" id="complain">Register a new Complaint</button>
+    </div>
+
+    <script>
+
+    $(document).ready(function() {
+       console.log('Loaded!!');
+
+       $('#complain').click(function() {
+           console.log($(this).text());
+           document.location.href = "{% url 'complaints:new_complain' %}"
+       });
+
+       $('#show_complain').click(function() {
+          let box = $('.complain-container');
+          box.empty();
+          box.hide();
+          $.ajax({
+
+            url: '{% url 'complaints:my_complaints' %}',
+            type: 'GET',
+            cache: false,
+            success: function(data){
+                if(data.length > 0)
+                {
+                   let pre = `<div class="col-sm-3 my-3">
+                                <h4 class="text-center">Title</h4>
+                               </div>
+
+                              <div class="col-sm-6 my-3">
+                                <h4 class="text-center">Description</h4>
+                              </div>
+
+                              <div class="col-sm-3 my-3">
+                                <h4 class="text-center">Posted At</h4>
+                              </div>`;
+                   box.append(pre);
+                   for(let i=0; i<data.length; i++)
+                    {
+                        box.append('<div class="col-sm-3 my-2">' + data[i].title + '</div>');
+                        box.append('<div class="col-sm-6 my-2">' + data[i].description + '</div>');
+                        box.append('<div class="col-sm-3 my-2">' + data[i].created_at + '</div>');
+                    }
+                    box.fadeIn(1000);
+                }
+
+		    },
+		    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("some error");
+            }
+          });
+       })
+    });
+
+    </script>
+{% endblock %}

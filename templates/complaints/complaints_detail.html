@@ -1,0 +1,119 @@
+<style>
+    .detail-container {
+        font-family: "Nunito", sans-serif;
+        color: crimson;
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+
+    .detail-container {
+        position: relative;
+
+    }
+
+    .fa {
+        font-size: 40px;
+        color: mintcream;
+    }
+
+    .fa:hover {
+        cursor: hand;
+    }
+
+    #form-container {
+        position: absolute;
+        margin: 1.5rem;
+        background-color: #8eaf5b;
+        width: 80%;
+        top: 50px;
+        left: 100px;
+        z-index: 10;
+        border-radius: 0.6rem;
+
+    }
+</style>
+
+{% extends 'base.html' %}
+
+{% block header %}
+    <title>Complain Detail</title>
+    {% load static %}
+{% endblock %}
+
+{% block content %}
+    <div class="container detail-container mx-auto my-3">
+
+        <div class="card">
+          <div class="card-header text-center">{{ object.title }}</div>
+          <div class="card-body">
+            <div class="container text-center">
+                <p>Complaint Posted By : {{ object.created_by }}</p>
+                <p>Location : {{ object.location }}</p>
+                <p>Time : {{ object.created_at }}</p>
+            </div>
+
+            <div class="container bg-warning rounded p-2">
+                <p>{{ object.description }}</p>
+            </div>
+          </div>
+
+          <div class="card-footer">
+              <div class="container text-center">
+                  <button class="btn btn-primary" id="mail_btn">Mail Action Report to {{ object.created_by }}</button>
+              </div>
+          </div>
+        </div>
+
+
+    <div class="container card-body" id="form-container">
+        <div class="container justify-content-between">
+                <i class="fa fa-close" style="font-size:40px"></i></div>
+            <h4 class="text-center mx-auto my-3">SEND EMAIL REPORT</h4>
+            <form method="post" action="#">
+              {% csrf_token %}
+
+              <div class="form-group">
+                  <label for="sender_email">SEND TO</label>
+                  <input class="form-control" type="text" name="sender_email" id="sender_email" placeholder="Sender Email!">
+              </div>
+
+              <div class="form-group">
+                  <label for="msg_subject">SUBJECT</label>
+                  <input class="form-control" type="text" name="msg_subject" id="msg_subject" placeholder="Email Subject">
+              </div>
+
+              <div class="form-group">
+                  <label for="msg_body">BODY</label>
+                  <textarea class="form-control" rows="10" name="msg_body" id="msg_body" placeholder="Enter the body of Email"></textarea>
+
+              </div>
+
+              <div class="container text-center">
+                  <button type="submit" class="btn btn-warning col-md-4" id="email_button" name="" value="Email Report">Email Report</button>
+              </div>
+
+        </form>
+        </div>
+
+    </div>
+
+    <script>
+    $(document).ready(function() {
+       console.log('Loaded document');
+
+       let form_container = $('#form-container');
+       form_container.hide();
+       // form_container.fadeIn(1000);
+
+       $('#mail_btn').click(function() {
+            form_container.fadeIn(500);
+       });
+
+       $('.fa-close').click(function() {
+            form_container.fadeOut(500);
+       });
+    });
+
+
+    </script>
+{% endblock %}
