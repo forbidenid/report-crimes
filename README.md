@@ -16,7 +16,7 @@ pip install -r requirements.txt
 ```
 python manage.py runserver
 ```
+[![Twitter Badge](https://img.shields.io/badge/Twitter-Profile-informational?style=flat&logo=twitter&logoColor=white&color=1CA2F1)](https://twitter.com/toor_ctrl)
+[![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-Profile-informational?style=flat&logo=linkedin&logoColor=white&color=0D76A8)](https://www.linkedin.com/in/ctrl-root/)
 
-<!-- links to my social accounts -->
-[1.1]: http://i.imgur.com/tXSoThF.png
 <a href="https://www.buymeacoffee.com/toor" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
