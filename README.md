@@ -16,4 +16,7 @@ pip install -r requirements.txt
 ```
 python manage.py runserver
 ```
+
+<!-- links to my social accounts -->
+[1.1]: http://i.imgur.com/tXSoThF.png
 <a href="https://www.buymeacoffee.com/toor" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
