@@ -12,3 +12,7 @@ cd report-crimes
 ```
 pip install -r requirements.txt
 ```
+# Run the application 
+```
+python manage.py runserver
+```
