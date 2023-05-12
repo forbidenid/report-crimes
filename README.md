@@ -8,4 +8,7 @@ git clone https://github.com/ctrl-root/report-crimes
 ```
 cd report-crimes
 ```
-
+# Install all the requirements 
+```
+pip install -r requirements.txt
+```
